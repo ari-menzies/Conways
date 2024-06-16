@@ -5,7 +5,6 @@
  * @author (Ari)
  * @version (v.1)
  */
-
 import javax.swing.*;
 import java.util.*;
 import java.awt.Color;
@@ -56,7 +55,6 @@ public class Conwaysforeal
     
     void draw() {
         drawCells();
-        cellRules();
     }
     
     void setup() {
@@ -85,8 +83,8 @@ public class Conwaysforeal
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
 
-                cell.setForeground(new Color(255,255, 255));
-                cell.setBackground(new Color(10, 10, 10));
+                cell.setForeground(new Color(10,10,10));
+                cell.setBackground(new Color(255,255, 255));
                 cell.setOpaque(true);
                 cell.setIsAlive();
 
@@ -100,75 +98,4 @@ public class Conwaysforeal
             }
         }
     }
-    
-        void cellRules(int rows, int cols){
-        // Create a new 2D array to store the next generation state
-        boolean[][] nextGeneration = new boolean[size][size];
-        
-        //go through each cell
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                //apply the rules to the cells
-                if () {
-                    
-                }
-        }
-    }
-    }
 }
-
-
-/*
- * // Loop through each cell
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                int liveNeighbors = countLiveNeighbors(i, j);
-        
-                // Apply Conway's rules
-                if (cells[i][j].isAlive) {
-                    if (liveNeighbors < 2 || liveNeighbors > 3) {
-                        nextGeneration[i][j] = false; // Cell dies
-                    } else {
-                        nextGeneration[i][j] = true; // Cell survives
-                    }
-                } else {
-                    if (liveNeighbors == 3) {
-                        nextGeneration[i][j] = true; // Cell is born
-                    } else {
-                        nextGeneration[i][j] = false; // Cell remains dead
-                    }
-                }
-            }
-        }
-
-        // Update the state of cells based on the next generation
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                cells[i][j].isAlive = nextGeneration[i][j];
-            }
-        }
-    }
-
-    // Helper method to count live neighbors of a cell
-    int countLiveNeighbors(int x, int y) {
-        int count = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                int newX = x + i;
-                int newY = y + j;
-                // Skip the cell itself
-                if (i == 0 && j == 0) {
-                    continue;
-                }
-                // Check boundaries
-                if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
-                    if (cells[newX][newY].isAlive) {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
- * 
- */
