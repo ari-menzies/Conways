@@ -54,7 +54,7 @@ public class Conwaysforeal
         window.setVisible(true);
         
         // start the generations 
-        Timer timer = new Timer(500,new ActionListener() {
+        Timer timer = new Timer(1000,new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nextGen();
             }
@@ -93,17 +93,15 @@ public class Conwaysforeal
                 cell.setFocusable(false);
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
-                cell.setForeground(new Color(255, 255, 255));
-                cell.setBackground(new Color(10,10,10));
+                cell.setForeground(new Color(10, 10, 10));
+                cell.setBackground(new Color(255, 255, 255));
                 cell.setOpaque(true);
                 cell.setIsAlive();
-                
-                checkNeighbors(cell.isAlive);
 
                 if (cell.isAlive == true) {
-                    cell.setText("1");
+                    cell.setText("⬛");
                 } else {
-                    cell.setText("O");
+                    cell.setText("0");
                 }
                 
                 cellsPanel.add(cell);
@@ -117,7 +115,7 @@ public class Conwaysforeal
         //loop through every cell in the current gen
         for (int i = 0; i<size; i++) {
             for (int j = 0; j<size; j++) {
-                int neighbors = countNeighbors (i, j,cells[i][j].isAlive); //counts neighbors
+                int neighbors = checkNeighbors (i, j); //counts neighbors
                 
                 // applying the rules of conways
                 if (cells[i][j].isAlive) {
@@ -152,7 +150,7 @@ public class Conwaysforeal
             for (int j = 0; j < size; j++) {
                 GridTile cell = cells[i][j];
                 if (cell.isAlive) {
-                    cell.setText("1");
+                    cell.setText("⬛");
                 } else {
                     cell.setText("0");
                 }
@@ -162,27 +160,29 @@ public class Conwaysforeal
         cellsPanel.repaint();
     }
     
-    void checkNeighbors(boolean isCellAlive){ // to see if neighboring cells are alive or dead (1 or 0) 
+    int checkNeighbors(int i, int j){ // to see if neighboring cells are alive or dead (1 or 0) 
         int neighborsAlive = 0;
-        
         // this checks all cells around the cell
         for (int r=-1; r<=1; r++){ 
             for (int c=-1; c<=1; c++){
-                if (r==0 && c==0){                        
-                    continue;
-                } else {
-                    neighborsAlive += countNeighbors(r, c, isCellAlive);
+                if (r==0 && c==0) continue;
+             
+            int row = r + i;
+            int col = c + j;
+                
+            if (row >= 0 && row < size && col >=0 && col < size) {
+                if (cells[row][col].isAlive) {
+                    neighborsAlive ++;
                 }
             }
         }
-        System.out.print(" " + neighborsAlive);
-    }
-    // This returns a 1 or 0 depending on if the cell is alive or dead 
-    int countNeighbors (int r, int c, boolean isCellAlive) {
-        if (isCellAlive) {
-            return 1;
-        } else {
-            return 0;
         }
+        System.out.print(neighborsAlive);
+        return neighborsAlive; 
+    }
+
+
+    public static void main(String[] args) {
+        new Conwaysforeal();
     }
 }
