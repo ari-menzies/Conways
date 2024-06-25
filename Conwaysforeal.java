@@ -1,4 +1,4 @@
-
+ 
 /**
  * Write a description of class Conwaysforeal here.
  * this is the second attempt at the java project 
@@ -6,9 +6,10 @@
  * @version (v.1)
  */
 import javax.swing.*;
-import java.util.*;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Conwaysforeal
 {
@@ -39,7 +40,7 @@ public class Conwaysforeal
     int height = 1000;
     float chance = 0.5f; // change number of spawn
     Random randomCellGen = new Random();
-    JFrame window = new JFrame("conwaysFoReal");
+    JFrame window = new JFrame("ConwaysFoReal");
     
     GridTile[][] cells = new GridTile[size][size];
     public Conwaysforeal(){
@@ -51,10 +52,19 @@ public class Conwaysforeal
         drawCells();
         window.add(cellsPanel);
         window.setVisible(true);
+        
+        // start the generations 
+        Timer timer = new Timer(500,new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                nextGen();
+            }
+        });
+        timer.start();
     }
     
     void draw() {
         drawCells();
+        
     }
     
     void setup() {
@@ -77,16 +87,18 @@ public class Conwaysforeal
                 GridTile cell = new GridTile(i, j); // Actually creating the new tile
                 cells[i][j] = cell;
                 
-                cell.setFocusable(false);
                 
-                //Change the style of the buttons
+                
+                //Change the actions of the jbuttons
+                cell.setFocusable(false);
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
-
-                cell.setForeground(new Color(10,10,10));
-                cell.setBackground(new Color(255,255, 255));
+                cell.setForeground(new Color(255, 255, 255));
+                cell.setBackground(new Color(10,10,10));
                 cell.setOpaque(true);
                 cell.setIsAlive();
+                
+                checkNeighbors(cell.isAlive);
 
                 if (cell.isAlive == true) {
                     cell.setText("1");
@@ -96,6 +108,81 @@ public class Conwaysforeal
                 
                 cellsPanel.add(cell);
             }
+        }
+    }
+    
+    void nextGen() {
+        int[][] nextGeneration = new int[size][size];
+        
+        //loop through every cell in the current gen
+        for (int i = 0; i<size; i++) {
+            for (int j = 0; j<size; j++) {
+                int neighbors = countNeighbors (i, j,cells[i][j].isAlive); //counts neighbors
+                
+                // applying the rules of conways
+                if (cells[i][j].isAlive) {
+                    if (neighbors < 2 || neighbors > 3) {
+                        nextGeneration[i][j] = 0; //the cells dies due to under or overpoulaiton 
+                    }else{
+                        nextGeneration[i][j] = 1; // the cells does not die because the popuylation is good
+                    }
+                }else{
+                    if(neighbors == 3) {
+                        nextGeneration[i][j] = 1; // cell becomes alive due to the correct population
+                    }else{
+                        nextGeneration[i][j] = 0; // cell remains dead 
+                        }
+                }
+            }
+        }
+        
+        //Now update the main grid
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cells[i][j].isAlive = (nextGeneration[i][j] == 1);
+            }
+        }
+        
+        //and redraw the cells 
+        updateGrid();
+    }
+    
+        void updateGrid() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                GridTile cell = cells[i][j];
+                if (cell.isAlive) {
+                    cell.setText("1");
+                } else {
+                    cell.setText("0");
+                }
+            }
+        }
+        cellsPanel.revalidate();
+        cellsPanel.repaint();
+    }
+    
+    void checkNeighbors(boolean isCellAlive){ // to see if neighboring cells are alive or dead (1 or 0) 
+        int neighborsAlive = 0;
+        
+        // this checks all cells around the cell
+        for (int r=-1; r<=1; r++){ 
+            for (int c=-1; c<=1; c++){
+                if (r==0 && c==0){                        
+                    continue;
+                } else {
+                    neighborsAlive += countNeighbors(r, c, isCellAlive);
+                }
+            }
+        }
+        System.out.print(" " + neighborsAlive);
+    }
+    // This returns a 1 or 0 depending on if the cell is alive or dead 
+    int countNeighbors (int r, int c, boolean isCellAlive) {
+        if (isCellAlive) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 }
