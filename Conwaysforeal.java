@@ -54,7 +54,7 @@ public class Conwaysforeal
         window.setVisible(true);
         
         // start the generations 
-        Timer timer = new Timer(1000,new ActionListener() {
+        Timer timer = new Timer(500,new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nextGen();
             }
@@ -97,6 +97,7 @@ public class Conwaysforeal
                 cell.setBackground(new Color(255, 255, 255));
                 cell.setOpaque(true);
                 cell.setIsAlive();
+                cell.setFont(new Font ("Arial", Font.BOLD, 18));
 
                 if (cell.isAlive == true) {
                     cell.setText("⬛");
