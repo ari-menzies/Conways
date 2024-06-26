@@ -53,6 +53,9 @@ public class Conwaysforeal
         window.add(cellsPanel);
         window.setVisible(true);
         
+        
+
+        
         // start the generations 
         Timer timer = new Timer(500,new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +64,10 @@ public class Conwaysforeal
         });
         timer.start();
     }
+    
+    //public void mouseClicked(MouseEvent e) {
+    //    System.out.print("mouseClicked");
+    //}
     
     void draw() {
         drawCells();
