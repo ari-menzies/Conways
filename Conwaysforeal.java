@@ -98,12 +98,6 @@ public class Conwaysforeal
                 cell.setOpaque(true);
                 cell.setIsAlive();
                 cell.setFont(new Font ("Arial", Font.BOLD, 18));
-
-                if (cell.isAlive == true) {
-                    cell.setText("⬛");
-                } else {
-                    cell.setText("0");
-                }
                 
                 cellsPanel.add(cell);
             }
@@ -153,7 +147,7 @@ public class Conwaysforeal
                 if (cell.isAlive) {
                     cell.setText("⬛");
                 } else {
-                    cell.setText("0");
+                    cell.setText("◻️");
                 }
             }
         }
