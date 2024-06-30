@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Conwaysforeal {
 
@@ -93,7 +94,7 @@ public class Conwaysforeal {
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
                 cell.setForeground(new Color(10, 10, 10));
-                cell.setBackground(new Color(255, 255, 255));
+                cell.setBackground(new Color(224, 255, 237));
                 cell.setOpaque(true);
                 cell.setIsAlive();
 
@@ -152,7 +153,13 @@ public class Conwaysforeal {
         cellsPanel.revalidate();
         cellsPanel.repaint();
     }
-
+    
+    public static int getUserInput () {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("How Many Generations would you like the simulation to run?");
+        return scanner.nextInt();
+    }
+    
     int checkNeighbors(int i, int j) { // To see if neighboring cells are alive or dead (1 or 0)
         int neighborsAlive = 0;
         // This checks all cells around the cell
@@ -170,10 +177,10 @@ public class Conwaysforeal {
                 }
             }
         }
-        System.out.print(neighborsAlive);
+        //System.out.print(neighborsAlive);
         return neighborsAlive;
     }
-
+    
     public static void main(String[] args) {
         new Conwaysforeal();
     }
