@@ -55,15 +55,9 @@ public class Conwaysforeal {
         drawCells();
         window.add(cellsPanel);
         window.setVisible(true);
-<<<<<<< HEAD
 
         // Start the generations 
         Timer timer = new Timer(1000, new ActionListener() {
-=======
-        
-        // start the generations 
-        Timer timer = new Timer(500,new ActionListener() {
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
             public void actionPerformed(ActionEvent e) {
                 nextGen();
             }
@@ -103,12 +97,7 @@ public class Conwaysforeal {
                 cell.setBackground(new Color(224, 255, 237));
                 cell.setOpaque(true);
                 cell.setIsAlive();
-<<<<<<< HEAD
 
-=======
-                cell.setFont(new Font ("Arial", Font.BOLD, 18));
-                
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
                 cellsPanel.add(cell);
             }
         }
@@ -157,11 +146,7 @@ public class Conwaysforeal {
                 if (cell.isAlive) {
                     cell.setText("⬛");
                 } else {
-<<<<<<< HEAD
                     cell.setText("⬜");
-=======
-                    cell.setText("◻️");
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
                 }
             }
         }
