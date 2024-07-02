@@ -55,15 +55,10 @@ public class Conwaysforeal {
         drawCells();
         window.add(cellsPanel);
         window.setVisible(true);
-<<<<<<< HEAD
 
-        // Start the generations 
-        Timer timer = new Timer(1000, new ActionListener() {
-=======
-        
         // start the generations 
         Timer timer = new Timer(500,new ActionListener() {
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
+
             public void actionPerformed(ActionEvent e) {
                 nextGen();
             }
@@ -71,7 +66,7 @@ public class Conwaysforeal {
         timer.start();
     }
 
-    void draw() {
+    public void draw() {
         drawCells();
     }
 
@@ -103,18 +98,18 @@ public class Conwaysforeal {
                 cell.setBackground(new Color(224, 255, 237));
                 cell.setOpaque(true);
                 cell.setIsAlive();
-<<<<<<< HEAD
 
-=======
+
+
                 cell.setFont(new Font ("Arial", Font.BOLD, 18));
                 
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
+
                 cellsPanel.add(cell);
             }
         }
     }
 
-    void nextGen() {
+    public void nextGen() {
         int[][] nextGeneration = new int[size][size];
 
         // Loop through every cell in the current generation
@@ -155,13 +150,9 @@ public class Conwaysforeal {
             for (int j = 0; j < size; j++) {
                 GridTile cell = cells[i][j];
                 if (cell.isAlive) {
-                    cell.setText("⬛");
+                    cell.setText("1");
                 } else {
-<<<<<<< HEAD
                     cell.setText("⬜");
-=======
-                    cell.setText("◻️");
->>>>>>> 2c867868427bb5dc3b90c5a31085ec6192464c6c
                 }
             }
         }
@@ -172,7 +163,8 @@ public class Conwaysforeal {
     public static int getUserInput () {
         Scanner scanner = new Scanner(System.in);
         System.out.print("How Many Generations would you like the simulation to run?");
-        return scanner.nextInt();
+        int userGen = scanner.nextInt();
+        return userGen;
     }
     
     int checkNeighbors(int i, int j) { // To see if neighboring cells are alive or dead (1 or 0)
