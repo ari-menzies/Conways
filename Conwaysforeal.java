@@ -4,7 +4,7 @@
  * @author (Ari)
  * @version (v.1)
  */
-
+// my imports
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class Conwaysforeal {
             this.isAlive = true;
         }
 
-        public void setIsAlive() {
+        public void setIsAlive() { //
             if (randomCellGen.nextFloat() < chance) {
                 this.isAlive = true;
             } else {
@@ -43,10 +43,11 @@ public class Conwaysforeal {
     float chance = 0.5f; // Change number of spawn
     Random randomCellGen = new Random();
     JFrame window = new JFrame("ConwaysFoReal");
-
+    // creates grid
     GridTile[][] cells = new GridTile[size][size];
 
     public Conwaysforeal() {
+        //Jframe preferences
         window.setSize(width, height);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
@@ -56,8 +57,8 @@ public class Conwaysforeal {
         window.add(cellsPanel);
         window.setVisible(true);
 
-        // Start the generations 
-        Timer timer = new Timer(1000, new ActionListener() {
+        //generation timer
+        Timer timer = new Timer(1000 , new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nextGen();
             }
@@ -66,6 +67,7 @@ public class Conwaysforeal {
     }
 
     void draw() {
+        //draws cells on grid
         drawCells();
     }
 
@@ -82,14 +84,14 @@ public class Conwaysforeal {
     }
 
     void drawCells() {
-        cellsPanel.setLayout(new GridLayout(size, size));
+        cellsPanel.setLayout(new GridLayout(size, size)); //Creates Jframe grid
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 GridTile cell = new GridTile(i, j); // Actually creating the new tile
                 cells[i][j] = cell;
 
-                // Change the actions of the JButtons
+                // Change the actions of the JButton cells
                 cell.setFocusable(false);
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
@@ -104,7 +106,7 @@ public class Conwaysforeal {
     }
 
     void nextGen() {
-        int[][] nextGeneration = new int[size][size];
+        int[][] nextGeneration = new int[size][size]; //new array for next gen
 
         // Loop through every cell in the current generation
         for (int i = 0; i < size; i++) {
@@ -144,17 +146,19 @@ public class Conwaysforeal {
             for (int j = 0; j < size; j++) {
                 GridTile cell = cells[i][j];
                 if (cell.isAlive) {
-                    cell.setText("⬛");
+                    cell.setText("⬛"); //alive
                 } else {
-                    cell.setText("⬜");
+                    cell.setText("⬜"); //dead
                 }
             }
         }
+        //reset the Jpanels
         cellsPanel.revalidate();
         cellsPanel.repaint();
     }
     
     int getUserInput () {
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("How Many Generations would you like the simulation to run?");
         return scanner.nextInt();
@@ -177,7 +181,7 @@ public class Conwaysforeal {
                 }
             }
         }
-        //System.out.print(neighborsAlive);
+        System.out.print(neighborsAlive);
         return neighborsAlive;
     }
     
