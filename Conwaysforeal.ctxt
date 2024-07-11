@@ -2,8 +2,6 @@
 comment0.target=Conwaysforeal
 comment1.params=
 comment1.target=Conwaysforeal()
-comment10.params=args
-comment10.target=void\ main(java.lang.String[])
 comment2.params=e
 comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment3.params=
@@ -20,4 +18,4 @@ comment8.params=
 comment8.target=int\ getUserInput()
 comment9.params=i\ j
 comment9.target=int\ checkNeighbors(int,\ int)
-numComments=11
+numComments=10

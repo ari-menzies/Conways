@@ -12,21 +12,22 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Conwaysforeal {
+public class Conwaysforeal { // this is my main class that holds all the code 
 
-    private class GridTile extends JButton {
-        int rows;
+    private class GridTile extends JButton { // GridTile is a private inner class that extends JButton, meaning each GridTile is a button on the grid.
+        // the position of the tile the grid
+        int rows;  
         int cols;
-        boolean isAlive;
+        boolean isAlive; // indicates weather the cell is alive or dead 
 
         public GridTile(int rows, int cols) {
             this.rows = rows;
             this.cols = cols;
-            this.isAlive = true;
+            this.isAlive = true; // every cell starts alive 
         }
 
-        public void setIsAlive() { //
-            if (randomCellGen.nextFloat() < chance) {
+        public void setIsAlive() { 
+            if (randomCellGen.nextFloat() < chance) { // randomCellGen.nextFloat() generates a random float between 0.0 and 1.0
                 this.isAlive = true;
             } else {
                 this.isAlive = false;
@@ -34,13 +35,13 @@ public class Conwaysforeal {
         }
     }
 
-    // Instance variables
+    // Instance variables 
     int size = 20;
     JPanel cellsPanel = new JPanel();
     int[] makeCells;
     int width = 1000;
     int height = 1000;
-    float chance = 0.5f; // Change number of spawn
+    float chance = 0.5f; 
     Random randomCellGen = new Random();
     JFrame window = new JFrame("ConwaysFoReal");
     // creates grid
@@ -72,9 +73,9 @@ public class Conwaysforeal {
     }
 
     void setup() {
-        makeCells = new int[size];
+        makeCells = new int[size]; // Create an array 'makeCells' with 'size' number of elements
 
-        for (int i = 0; i < cells.length; i++) {
+        for (int i = 0; i < cells.length; i++) { // Loop through each cell in the cells array.
             if (randomCellGen.nextFloat() < chance) {
                 makeCells[i] = 1; // Alive cell = 1
             } else {
@@ -87,7 +88,7 @@ public class Conwaysforeal {
         cellsPanel.setLayout(new GridLayout(size, size)); //Creates Jframe grid
 
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+            for (int j = 0; j < size; j++) { // loops through the rows and colums of the grid
                 GridTile cell = new GridTile(i, j); // Actually creating the new tile
                 cells[i][j] = cell;
 
@@ -96,11 +97,10 @@ public class Conwaysforeal {
                 cell.setBorderPainted(true);
                 cell.setContentAreaFilled(true);
                 cell.setForeground(new Color(10, 10, 10));
-                cell.setBackground(new Color(224, 255, 237));
+                cell.setBackground(new Color(254, 255, 237));
                 cell.setOpaque(true);
                 cell.setIsAlive();
-
-                cellsPanel.add(cell);
+                cellsPanel.add(cell); // the configured GridTile object is added to the cellsPanel
             }
         }
     }
@@ -133,7 +133,7 @@ public class Conwaysforeal {
         // Update the main grid
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                cells[i][j].isAlive = (nextGeneration[i][j] == 1);
+                cells[i][j].isAlive = (nextGeneration[i][j] == 1); // Updates the state of the cell in the main grid to reflect the state of the next generation.
             }
         }
 
@@ -143,7 +143,7 @@ public class Conwaysforeal {
 
     void updateGrid() {
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+            for (int j = 0; j < size; j++) { // loops through the cells 
                 GridTile cell = cells[i][j];
                 if (cell.isAlive) {
                     cell.setText("⬛"); //alive
@@ -158,34 +158,29 @@ public class Conwaysforeal {
     }
     
     int getUserInput () {
-
         Scanner scanner = new Scanner(System.in);
         System.out.print("How Many Generations would you like the simulation to run?");
         return scanner.nextInt();
-    }
+    }   
     
     int checkNeighbors(int i, int j) { // To see if neighboring cells are alive or dead (1 or 0)
         int neighborsAlive = 0;
         // This checks all cells around the cell
         for (int r = -1; r <= 1; r++) {
             for (int c = -1; c <= 1; c++) {
-                if (r == 0 && c == 0) continue;
+                if (r == 0 && c == 0) continue; // skips the middle cell
 
                 int row = r + i;
                 int col = c + j;
 
-                if (row >= 0 && row < size && col >= 0 && col < size) {
+                if (row >= 0 && row < size && col >= 0 && col < size) { // ensures that the neighboring cell being checked is within the valid range of the grid.
                     if (cells[row][col].isAlive) {
-                        neighborsAlive++;
+                        neighborsAlive++; // is the cell is alive add yto neighborsAlive
                     }
                 }
             }
         }
         System.out.print(neighborsAlive);
         return neighborsAlive;
-    }
-    
-    public static void main(String[] args) {
-        new Conwaysforeal();
     }
 }
