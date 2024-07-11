@@ -157,8 +157,8 @@ public class Conwaysforeal { // this is my main class that holds all the code
         cellsPanel.repaint();
     }
     
-    int getUserInput () {
-        Scanner scanner = new Scanner(System.in);
+    public static int getUserInput () {
+        Scanner scanner = new Scanner(System.in); // create a scanner 
         System.out.print("How Many Generations would you like the simulation to run?");
         return scanner.nextInt();
     }   
