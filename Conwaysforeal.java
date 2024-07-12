@@ -46,8 +46,12 @@ public class Conwaysforeal { // this is my main class that holds all the code
     JFrame window = new JFrame("ConwaysFoReal");
     // creates grid
     GridTile[][] cells = new GridTile[size][size];
-
+    int userInput;
+    
     public Conwaysforeal() {
+        // Get user input for the number of generations
+        this.userInput = getUserInput();
+        
         //Jframe preferences
         window.setSize(width, height);
         window.setResizable(false);
@@ -59,14 +63,31 @@ public class Conwaysforeal { // this is my main class that holds all the code
         window.setVisible(true);
 
         //generation timer
-        Timer timer = new Timer(1000 , new ActionListener() {
+        Timer timer = new Timer(700, new ActionListener() {
+            int currentGen = 0;
+
             public void actionPerformed(ActionEvent e) {
-                nextGen();
+                if (currentGen < userInput) {
+                    nextGen();
+                    currentGen++;
+                } else {
+                    ((Timer) e.getSource()).stop();
+                }
             }
         });
         timer.start();
     }
-
+    
+    public static int getUserInput () {
+        Scanner scanner = new Scanner(System.in); // create a scanner 
+        int userInput;
+            
+        System.out.print("How Many Generations would you like the simulation to run?"); // ask the user 
+        userInput = scanner.nextInt(); // take the interger 
+        System.out.print("Running " + userInput + " generations"); // display int to user
+        return userInput;
+    }
+    
     void draw() {
         //draws cells on grid
         drawCells();
@@ -157,11 +178,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         cellsPanel.repaint();
     }
     
-    public static int getUserInput () {
-        Scanner scanner = new Scanner(System.in); // create a scanner 
-        System.out.print("How Many Generations would you like the simulation to run?");
-        return scanner.nextInt();
-    }   
+   
     
     int checkNeighbors(int i, int j) { // To see if neighboring cells are alive or dead (1 or 0)
         int neighborsAlive = 0;
@@ -180,7 +197,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
                 }
             }
         }
-        System.out.print(neighborsAlive);
+        //System.out.print(neighborsAlive);
         return neighborsAlive;
     }
 }
