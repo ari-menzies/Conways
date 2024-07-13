@@ -47,11 +47,11 @@ public class Conwaysforeal { // this is my main class that holds all the code
     // creates grid
     GridTile[][] cells = new GridTile[size][size];
     int userInput;
-    
+    int currentGen;
     public Conwaysforeal() {
         // Get user input for the number of generations
         this.userInput = getUserInput();
-        
+        this.currentGen = 0;
         //Jframe preferences
         window.setSize(width, height);
         window.setResizable(false);
@@ -63,13 +63,14 @@ public class Conwaysforeal { // this is my main class that holds all the code
         window.setVisible(true);
 
         //generation timer
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(1000, new ActionListener() {
             int currentGen = 0;
 
             public void actionPerformed(ActionEvent e) {
                 if (currentGen < userInput) {
                     nextGen();
                     currentGen++;
+                    System.out.print("\nGeneration " + currentGen);
                 } else {
                     ((Timer) e.getSource()).stop();
                 }
@@ -86,6 +87,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         userInput = scanner.nextInt(); // take the interger 
         System.out.print("Running " + userInput + " generations"); // display int to user
         return userInput;
+        
     }
     
     void draw() {
