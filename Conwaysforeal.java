@@ -63,7 +63,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         window.setVisible(true);
 
         //generation timer
-        Timer timer = new Timer(700, new ActionListener() {
+        Timer timer = new Timer(500, new ActionListener() {
             int currentGen = 0;
 
             public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         Scanner scanner = new Scanner(System.in); // create a scanner 
         int userInput;
             
-        System.out.print("How Many Generations would you like the simulation to run?"); // ask the user 
+        System.out.print("How Many Generations would you like the \n simulation to run?"); // ask the user 
         userInput = scanner.nextInt(); // take the interger 
         System.out.print("Running " + userInput + " generations"); // display int to user
         return userInput;
