@@ -1,4 +1,4 @@
-/**
+/**+
  * Write a description of class Conwaysforeal here.
  * This is the second attempt at the Java project 
  * @author (Ari)
@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.InputMismatchException;
 
 public class Conwaysforeal { // this is my main class that holds all the code 
 
@@ -24,6 +27,13 @@ public class Conwaysforeal { // this is my main class that holds all the code
             this.rows = rows;
             this.cols = cols;
             this.isAlive = true; // every cell starts alive 
+            
+            // this listens for a mouse click
+            this.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent me) {
+                    changeCell();
+                }
+            });
         }
 
         public void setIsAlive() { 
@@ -33,8 +43,17 @@ public class Conwaysforeal { // this is my main class that holds all the code
                 this.isAlive = false;
             }
         }
+        
+        public void changeCell() {
+            if (this.isAlive = !this.isAlive) { // the ! means that if it is true it will return false and reverse the outcome 
+                    this.setText("⬛"); // if it isn't alive set to this
+                } else {
+                    this.setText("⬜"); // if it is alive set to dead
+                }
+            }
     }
-
+        
+    
     // Instance variables 
     int size = 20;
     JPanel cellsPanel = new JPanel();
@@ -42,12 +61,14 @@ public class Conwaysforeal { // this is my main class that holds all the code
     int width = 1000;
     int height = 1000;
     float chance = 0.5f; 
-    Random randomCellGen = new Random();
-    JFrame window = new JFrame("ConwaysFoReal");
-    // creates grid
-    GridTile[][] cells = new GridTile[size][size];
     int userInput;
     int currentGen;
+    Random randomCellGen = new Random();
+    JFrame window = new JFrame("ConwaysFoReal");
+    JButton pause = new JButton("Pause Button");
+    // creates grid
+    GridTile[][] cells = new GridTile[size][size];
+    
     public Conwaysforeal() {
         // Get user input for the number of generations
         this.userInput = getUserInput();
@@ -57,11 +78,21 @@ public class Conwaysforeal { // this is my main class that holds all the code
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         drawCells();
         window.add(cellsPanel);
         window.setVisible(true);
-
+        
+        // Jbutton prefrences 
+        pause.setBounds(10,10, 100, 30);
+        pause.addMouseListener(new MouseAdapter() {
+                public void pauseClicked(MouseEvent me) {
+                    pauseButton();
+                }
+            });
+        window.add(pause, BorderLayout.NORTH);
+        
+        
         //generation timer
         Timer timer = new Timer(1000, new ActionListener() {
             int currentGen = 0;
@@ -72,19 +103,36 @@ public class Conwaysforeal { // this is my main class that holds all the code
                     currentGen++;
                     System.out.print("\nGeneration " + currentGen);
                 } else {
-                    ((Timer) e.getSource()).stop();
+                    ((Timer) e.getSource()).stop(); // stops the simulation
                 }
             }
         });
         timer.start();
+        
+        
     }
     
+    public void pauseButton() {
+        
+    }
+        
     public static int getUserInput () {
         Scanner scanner = new Scanner(System.in); // create a scanner 
-        int userInput;
-            
-        System.out.print("How Many Generations would you like the \n simulation to run?"); // ask the user 
-        userInput = scanner.nextInt(); // take the interger 
+        int userInput = -1;
+        
+        while (userInput <= 0) { // continues to ask until valid input 
+            System.out.print("How Many Generations would you like the \n simulation to run?"); // ask the user
+            try {
+                userInput = scanner.nextInt();
+                if (userInput <= 0) { // checks for negative number
+                    System.out.print(" Please enter a positive number\n");
+                }
+            }catch (InputMismatchException e){ // catches the error of an invalid input (not an int)
+                System.out.print(" Please enter a number\n");
+                scanner.next(); // Clear the invalid input
+            }
+    }
+         // take the interger 
         System.out.print("Running " + userInput + " generations"); // display int to user
         return userInput;
         
@@ -148,6 +196,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
                         nextGeneration[i][j] = 1; // Cell becomes alive due to the correct population
                     } else {
                         nextGeneration[i][j] = 0; // Cell remains dead
+                        //System.out.print("Test");
                     }
                 }
             }
@@ -179,7 +228,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         cellsPanel.revalidate();
         cellsPanel.repaint();
     }
-    
+   
    
     
     int checkNeighbors(int i, int j) { // To see if neighboring cells are alive or dead (1 or 0)
