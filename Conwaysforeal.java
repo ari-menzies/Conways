@@ -55,7 +55,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         
     
     // Instance variables 
-    int size = 20;
+    int size = 22; // number of cells on x and y axis
     JPanel cellsPanel = new JPanel();
     int[] makeCells;
     int width = 1000;
@@ -65,7 +65,8 @@ public class Conwaysforeal { // this is my main class that holds all the code
     int currentGen;
     Random randomCellGen = new Random();
     JFrame window = new JFrame("ConwaysFoReal");
-    JButton pause = new JButton("Pause Button");
+    JButton pause = new JButton("Pause");
+    Timer timer; // Declare the timer as an instance variable
     // creates grid
     GridTile[][] cells = new GridTile[size][size];
     
@@ -86,7 +87,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         // Jbutton prefrences 
         pause.setBounds(10,10, 100, 30);
         pause.addMouseListener(new MouseAdapter() {
-                public void pauseClicked(MouseEvent me) {
+                public void mouseClicked(MouseEvent e) {
                     pauseButton();
                 }
             });
@@ -94,7 +95,7 @@ public class Conwaysforeal { // this is my main class that holds all the code
         
         
         //generation timer
-        Timer timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             int currentGen = 0;
 
             public void actionPerformed(ActionEvent e) {
@@ -109,12 +110,21 @@ public class Conwaysforeal { // this is my main class that holds all the code
         });
         timer.start();
         
+
         
     }
-    
+
     public void pauseButton() {
-        
-    }
+        if (timer.isRunning()) {
+            timer.stop();
+            pause.setText("Unpause"); // change text to "Unpause"
+            //System.out.print("stop");
+        } else {
+            timer.start();
+            pause.setText("Pause"); // change text to "Unpause"
+            //System.out.print("start");
+        }
+    }    
         
     public static int getUserInput () {
         Scanner scanner = new Scanner(System.in); // create a scanner 
@@ -125,15 +135,15 @@ public class Conwaysforeal { // this is my main class that holds all the code
             try {
                 userInput = scanner.nextInt();
                 if (userInput <= 0) { // checks for negative number
-                    System.out.print(" Please enter a positive number\n");
+                    System.out.print(" Please enter a positive Integer\n");
                 }
             }catch (InputMismatchException e){ // catches the error of an invalid input (not an int)
-                System.out.print(" Please enter a number\n");
+                System.out.print(" Please enter an Interger\n");
                 scanner.next(); // Clear the invalid input
             }
     }
          // take the interger 
-        System.out.print("Running " + userInput + " generations"); // display int to user
+        System.out.print("Running " + userInput + " generation(s)"); // display int to user
         return userInput;
         
     }
